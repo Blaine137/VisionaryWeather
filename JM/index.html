@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <p id="stuff"></p>
+    <script>
+
+      let stuff = document.getElementById('stuff');
+
+      var data = null;
+
+var xhr = new XMLHttpRequest();
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+    stuff.innerHTML = this.responseText;
+  }
+});
+
+xhr.open("GET", "https://api.climacell.co/v3/weather/realtime?lat=33.74855&lon=-84.391502&unit_system=us&fields=feels_like,wind_gust&apikey=L3g9oaDS5EfduhTAcmPrVxbFSRjOJyrX");
+
+xhr.send(data);
+
+    </script>
+</body>
+</html>
