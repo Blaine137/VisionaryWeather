@@ -1,3 +1,9 @@
+const options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
 window.addEventListener('load', () => {
 
   var data = null;
@@ -25,4 +31,23 @@ window.addEventListener('load', () => {
 
   xhr.send(data);
 
+  let geo = navigator.geolocation;
+  geo.getCurrentPosition(success, error, options);
+
 });
+
+
+function success(pos) {
+  console.log(pos)
+  var crd = pos.coords;
+
+  console.log('Your current position is:');
+  console.log(`Latitude : ${crd.latitude}`);
+  console.log(`Longitude: ${crd.longitude}`);
+  console.log(`More or less ${crd.accuracy} meters.`);
+}
+
+function error(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
