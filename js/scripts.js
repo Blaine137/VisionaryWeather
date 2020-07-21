@@ -54,6 +54,7 @@ function getCoordintes() {
   }; 
 
   function success(pos) { 
+      console.log('position: ', pos)
       var crd = pos.coords; 
       var lat = crd.latitude.toString(); 
       var lng = crd.longitude.toString(); 
