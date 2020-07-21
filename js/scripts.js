@@ -87,6 +87,7 @@ function getCity(coordinates) {
       if (xhr.readyState == 4 && xhr.status == 200) { 
           var response = JSON.parse(xhr.responseText); 
           var city = response.address.city; //gets city and to get state replace city with state
+          console.log('current city: ', city)
           return; 
       } 
   } 
