@@ -1,3 +1,4 @@
+
 const options = {
   enableHighAccuracy: true,
   timeout: 5000,
@@ -51,26 +52,26 @@ function getCoordintes() {
       enableHighAccuracy: true, 
       timeout: 5000, 
       maximumAge: 0 
-  }; 
-
-  function success(pos) { 
-      console.log('position: ', pos)
-      var crd = pos.coords; 
-      var lat = crd.latitude.toString(); 
-      var lng = crd.longitude.toString(); 
-      var coordinates = [lat, lng]; 
-      console.log(`Latitude: ${lat}, Longitude: ${lng}`); 
-      getCity(coordinates); 
-      return; 
-
-  } 
-
-  function error(err) { 
-      console.warn(`ERROR(${err.code}): ${err.message}`); 
-  } 
+  };  
 
   navigator.geolocation.getCurrentPosition(success, error, options); 
 } 
+
+function success(pos) { 
+  console.log('position: ', pos)
+  var crd = pos.coords; 
+  var lat = crd.latitude.toString(); 
+  var lng = crd.longitude.toString(); 
+  var coordinates = [lat, lng]; 
+  console.log(`Latitude: ${lat}, Longitude: ${lng}`); 
+  getCity(coordinates); 
+  return; 
+
+} 
+
+function error(err) { 
+  console.warn(`ERROR(${err.code}): ${err.message}`); 
+}
 
 // Step 2: Get city name 
 function getCity(coordinates) { 
@@ -94,6 +95,6 @@ function getCity(coordinates) {
   } 
 } 
 
-getCoordintes(); 
+getCoordintes();
 
 
