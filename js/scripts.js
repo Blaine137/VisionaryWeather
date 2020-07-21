@@ -5,7 +5,7 @@ const options = {
 };
 
 window.addEventListener('load', () => {
-
+  test()
   var data = null;
 
   var xhr = new XMLHttpRequest();
@@ -30,24 +30,69 @@ window.addEventListener('load', () => {
   xhr.open("GET", "https://api.climacell.co/v3/weather/realtime?lat=33.4473&lon=84.1469&unit_system=us&fields=temp,wind_speed,precipitation,precipitation_type&apikey=L3g9oaDS5EfduhTAcmPrVxbFSRjOJyrX");
 
   xhr.send(data);
-
-  let geo = navigator.geolocation;
-  geo.getCurrentPosition(success, error, options);
-
+  
 });
 
+if(document.querySelector('.searchBtn')){
 
-function success(pos) {
-  console.log(pos)
-  var crd = pos.coords;
+  document.querySelector('.searchBtn').addEventListener('click', () => {
 
-  console.log('Your current position is:');
-  console.log(`Latitude : ${crd.latitude}`);
-  console.log(`Longitude: ${crd.longitude}`);
-  console.log(`More or less ${crd.accuracy} meters.`);
+    let geo = navigator.geolocation;
+    geo.getCurrentPosition(success, error, options);
+  
+  });
+
 }
 
-function error(err) {
-  console.warn(`ERROR(${err.code}): ${err.message}`);
-}
+
+
+// Step 1: Get user coordinates 
+function getCoordintes() { 
+  var options = { 
+      enableHighAccuracy: true, 
+      timeout: 5000, 
+      maximumAge: 0 
+  }; 
+
+  function success(pos) { 
+      var crd = pos.coords; 
+      var lat = crd.latitude.toString(); 
+      var lng = crd.longitude.toString(); 
+      var coordinates = [lat, lng]; 
+      console.log(`Latitude: ${lat}, Longitude: ${lng}`); 
+      getCity(coordinates); 
+      return; 
+
+  } 
+
+  function error(err) { 
+      console.warn(`ERROR(${err.code}): ${err.message}`); 
+  } 
+
+  navigator.geolocation.getCurrentPosition(success, error, options); 
+} 
+
+// Step 2: Get city name 
+function getCity(coordinates) { 
+  var xhr = new XMLHttpRequest(); 
+  var lat = coordinates[0]; 
+  var lng = coordinates[1]; 
+
+  // Paste your LocationIQ token below. 
+  xhr.open('GET', "https://us1.locationiq.com/v1/reverse.php?key=77182bb535389d&lat=" + lat + "&lon=" + lng + "&format=json", true); 
+  xhr.send(); 
+  xhr.onreadystatechange = processRequest; 
+  xhr.addEventListener("readystatechange", processRequest, false); 
+
+  function processRequest(e) { 
+      if (xhr.readyState == 4 && xhr.status == 200) { 
+          var response = JSON.parse(xhr.responseText); 
+          var city = response.address.city; //gets city and to get state replace city with state
+          return; 
+      } 
+  } 
+} 
+
+getCoordintes(); 
+
 
