@@ -5,7 +5,6 @@ const options = {
 };
 
 window.addEventListener('load', () => {
-  test()
   var data = null;
 
   var xhr = new XMLHttpRequest();
