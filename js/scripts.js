@@ -1,4 +1,4 @@
-
+/* NEED TO FIND AN ALTERNATIVE TO GET COORDINATES FROM CITY NAME */
 const options = {
   enableHighAccuracy: true,
   timeout: 5000,
