@@ -13,82 +13,161 @@
   <body>
 
     <header class="jumbotron jumbotron-fluid">
-        <h1>Visionary Weather</h1>
+
+        <h1 class="text-center">Visionary Weather</h1>
+
     </header>
     
     <div class="container mb-5">
+
         <div class="row">
+
             <div class="col-12">
+
                 <div class="input-group">
+
                     <div class="input-group-prepend">
+
                         <button class="btn btn-outline-secondary" type="button" id="searchBtn">Search</button>
+
                     </div>
+
                     <input type="text" class="form-control" placeholder="Enter a location" aria-label="location" aria-describedby="basic-addon1">
+
                   </div>
+
             </div>
+
         </div>
+
     </div>
 
     <div class="container">
+
         <div class="row">
+
             <div class="col-12">
 
-
               <div class="accordion" id="accordionExample">
+
                 <div class="card">
+
                   <div class="card-header" id="headingOne">
+
                     <h2 class="mb-0">
+
+                      <button id="currName" class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapseOne">
+                        Current Location
+                      </button>
+
+                    </h2>
+
+                  </div>
+              
+                  <div id="collapse" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+
+                    <div class="card-body">
+
+                      <span>Weather Icon</span>
+                      <p id="currTemp">Temp</p>
+                      <p id="currWindSpeed">wind speed</p>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div class="card">
+
+                  <div class="card-header" id="headingOne">
+
+                    <h2 class="mb-0">
+
                       <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         McDonough, GA
                       </button>
+
                     </h2>
+
                   </div>
               
-                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+
                     <div class="card-body">
+
                       <span>Weather Icon</span>
-                      <p class="mcdonoughTemp">Temp</p>
-                      <p class="mcdonoughwindspeed">wind speed</p>
+                      <p id="mcdonoughTemp">Temp</p>
+                      <p id="mcdonoughWindSpeed">wind speed</p>
+
                     </div>
+
                   </div>
+
                 </div>
+
                 <div class="card">
+
                   <div class="card-header" id="headingTwo">
+
                     <h2 class="mb-0">
+
                       <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                         Griffin, GA
                       </button>
+
                     </h2>
+
                   </div>
+
                   <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+
                     <div class="card-body">
+
                       <span>Weather Icon</span>
-                      <p class="mcdonoughTemp">Temp</p>
-                      <p class="mcdonoughwindspeed">wind speed</p>
+                      <p id="griffinTemp">Temp</p>
+                      <p id="griffinWindSpeed">wind speed</p>
+
                     </div>
+
                   </div>
+
                 </div>
+
                 <div class="card">
+
                   <div class="card-header" id="headingThree">
+
                     <h2 class="mb-0">
+
                       <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                         Atlanta, GA
                       </button>
+
                     </h2>
+
                   </div>
+
                   <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+
                     <div class="card-body">
+
                       <span>Weather Icon</span>
-                      <p class="mcdonoughTemp">Temp</p>
-                      <p class="mcdonoughwindspeed">wind speed</p>
+                      <p id="atlantaTemp">Temp</p>
+                      <p id="atlantaWindSpeed">wind speed</p>
+
                     </div>
+
                   </div>
+
                 </div>
+
               </div>
 
-
             </div>
+
         </div>
+
     </div>
 
     <!-- Optional JavaScript -->
