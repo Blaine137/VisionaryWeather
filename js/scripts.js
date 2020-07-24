@@ -21,7 +21,9 @@ let getWeather = ( coordinates, elementTemp, elementWind) => {
    
       //data is object/array that contains weather information for a given location
       let data = Object.entries( JSON.parse( this.responseText ) ); 
-      console.log(data[0]);
+
+      //console log data[0] to see if we are out of free request to the weather api
+      //console.log(data[0]);
 
       //gets the location temp
       let tempData = Object.entries( data[ 2 ][ 1 ] );
@@ -42,25 +44,14 @@ let getWeather = ( coordinates, elementTemp, elementWind) => {
   });
 
   //get weather for given coordinates
-  xhr.open( "GET", "https://api.climacell.co/v3/weather/realtime?lat=" + coordinates[ 0 ] + "&lon="+ coordinates[ 1 ]+ "&unit_system=us&fields=temp,wind_speed,precipitation,precipitation_type&apikey=L3g9oaDS5EfduhTAcmPrVxbFSRjOJyrX" );
+  xhr.open( "GET", "https://api.climacell.co/v3/weather/realtime?lat=" + coordinates[ 0 ] + "&lon="+ coordinates[ 1 ]+ "&unit_system=us&fields=temp,wind_speed,precipitation,precipitation_type&apikey=" + weatherApiKey );
 
   xhr.send( data );
 
 }
 
-//if the search btn is present add click listener that will run function to get weather for entered city name.
-if( document.querySelector( '.searchBtn' ) ){
-
-  document.querySelector( '.searchBtn' ).addEventListener( 'click', ( ) => {
-
-    navigator.geolocation.getCurrentPosition( success, error, options );
-  
-  } );
-
-}//if(search btn)
-
 //  Get user coordinates based on user position. requires user to have allowed the website to access current position
-function getCoordinates( ) { 
+let getCurrentLocation = ( ) => { 
 
 
   navigator.geolocation.getCurrentPosition( success, error, options ); 
@@ -68,19 +59,19 @@ function getCoordinates( ) {
 }//getCoordinates()
 
 //navigator.geolocation.getCurrentPosition if was able to get position then get weather and city name for that position
-function success( pos ) { 
+let success = ( pos ) => { 
 
   //get lat and long of current location
   let coordinates = [pos.coords.latitude.toString( ), pos.coords.longitude.toString( ) ]; 
 
-  //getCity( coordinates );
+  getCityName( coordinates, document.getElementById('currName') );
   getWeather( coordinates, document.getElementById('currTemp'), document.getElementById('currWindSpeed') ); 
   return; 
 
 } //success()
 
 //navigator.geolocation.getCurrentPosition was unable to get position so notify the user
-function error( err ) { 
+let error = ( err ) => { 
 
   console.warn( `ERROR( ${ err.code } ): ${err.message}` ); 
   
@@ -88,14 +79,13 @@ function error( err ) {
 
 //gets the name of a city based on the lat and long coordinates and displays it
 //elementName is dom element where the city Name is to be displayed
-function getCity( coordinates, elementName ) { 
+let getCityName = ( coordinates, elementName ) => { 
 
   let xhr = new XMLHttpRequest( ); 
   let lat = coordinates[ 0 ]; 
   let lng = coordinates[ 1 ]; 
 
-  // Paste your LocationIQ token below. 
-  xhr.open( 'GET', "https://us1.locationiq.com/v1/reverse.php?key=77182bb535389d&lat=" + lat + "&lon=" + lng + "&format=json", true ); 
+  xhr.open( 'GET', "https://us1.locationiq.com/v1/reverse.php?key=" + locationIQKey + "&lat=" + lat + "&lon=" + lng + "&format=json", true ); 
   xhr.send( ); 
   xhr.onreadystatechange = processRequest; 
   xhr.addEventListener( "readystatechange", processRequest, false ); 
@@ -123,10 +113,48 @@ function getCity( coordinates, elementName ) {
 
 }//gitCity()
 
-//starts get weather for current location
-//lat=33.4473&lon=84.1469
-getWeather([33.4473, 84.1469], document.getElementById('mcdonoughTemp'), document.getElementById('mcdonoughWindSpeed') );
+let getCoordsByCity = ( address ) => {
 
-getCoordinates();
+  //https://us1.locationiq.com/v1/search.php?key=YOUR_PRIVATE_TOKEN&q=SEARCH_STRING&format=json
+  let xhr = new XMLHttpRequest( ); 
+
+  xhr.open( 'GET', "https://us1.locationiq.com/v1/search.php?key=" + locationIQKey + "&q=" + address + "&format=json", true ); 
+  xhr.send( ); 
+  xhr.onreadystatechange = processRequest; 
+  xhr.addEventListener( "readystatechange", processRequest, false ); 
+
+  function processRequest( e ) { 
+      
+
+      if ( xhr.readyState == 4 && xhr.status == 200 ) { 
+
+          let response = JSON.parse( xhr.responseText ); 
+
+          console.log(response);
+
+          return; 
+
+      } 
+      
+  }//processRequest()
+
+}//getCoordsByCity
+
+//if the search btn is present add click listener that will run function to get weather for entered city name.
+if( document.querySelector( '#searchBtn' ) ) {
+
+  document.querySelector( '#searchBtn' ).addEventListener( 'click', ( ) => {
+
+    getCoordsByCity(document.querySelector( '#searchAddress' ).value );
+  
+  } );
+
+}//if(search btn)
+
+//gets and sets weather for mcDonough GA
+getWeather( [ 33.4473, 84.1469 ], document.getElementById( 'mcdonoughTemp' ), document.getElementById( 'mcdonoughWindSpeed' ) );
+
+//get and sets weather for current location. requires user to allow website to use current location
+getCurrentLocation();
 
 
