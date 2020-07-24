@@ -130,7 +130,39 @@ let getCoordsByCity = ( address ) => {
 
           let response = JSON.parse( xhr.responseText ); 
 
-          console.log(response);
+          let location = response[0].display_name; //the location that was entered to search
+          
+          let newCard = `
+          <div class="card">
+
+          <div class="card-header" id="headingOne">
+
+            <h2 class="mb-0">
+
+              <button id="currName" class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapseOne">
+                ${location}
+              </button>
+
+            </h2>
+
+          </div>
+      
+          <div id="collapse" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+
+            <div class="card-body">
+
+              <span>Weather Icon</span>
+              <p id="currTemp">Temp</p>
+              <p id="currWindSpeed">wind speed</p>
+
+            </div>
+
+          </div>
+
+        </div>
+          `; //adds a new card on submit (still need to make aria-controls somehow dYnamic)
+
+          document.querySelector('.accordion').insertAdjacentHTML('afterend',newCard); //adds the card to the accordion
 
           return; 
 
@@ -150,9 +182,6 @@ if( document.querySelector( '#searchBtn' ) ) {
   } );
 
 }//if(search btn)
-
-//gets and sets weather for mcDonough GA
-getWeather( [ 33.4473, 84.1469 ], document.getElementById( 'mcdonoughTemp' ), document.getElementById( 'mcdonoughWindSpeed' ) );
 
 //get and sets weather for current location. requires user to allow website to use current location
 getCurrentLocation();
