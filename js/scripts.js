@@ -53,7 +53,6 @@ let getWeather = ( coordinates, elementTemp, elementWind) => {
 //  Get user coordinates based on user position. requires user to have allowed the website to access current position
 let getCurrentLocation = ( ) => { 
 
-
   navigator.geolocation.getCurrentPosition( success, error, options ); 
 
 }//getCoordinates()
@@ -87,7 +86,6 @@ let getCityName = ( coordinates, elementName ) => {
 
   xhr.open( 'GET', "https://us1.locationiq.com/v1/reverse.php?key=" + locationIQKey + "&lat=" + lat + "&lon=" + lng + "&format=json", true ); 
   xhr.send( ); 
-  xhr.onreadystatechange = processRequest; 
   xhr.addEventListener( "readystatechange", processRequest, false ); 
 
   function processRequest( e ) { 
@@ -113,6 +111,9 @@ let getCityName = ( coordinates, elementName ) => {
 
 }//gitCity()
 
+//used to keep track of cards and allow bootstrap accordion to work.
+let cardId = 0;
+
 let getCoordsByCity = ( address ) => {
 
   //https://us1.locationiq.com/v1/search.php?key=YOUR_PRIVATE_TOKEN&q=SEARCH_STRING&format=json
@@ -120,7 +121,6 @@ let getCoordsByCity = ( address ) => {
 
   xhr.open( 'GET', "https://us1.locationiq.com/v1/search.php?key=" + locationIQKey + "&q=" + address + "&format=json", true ); 
   xhr.send( ); 
-  xhr.onreadystatechange = processRequest; 
   xhr.addEventListener( "readystatechange", processRequest, false ); 
 
   function processRequest( e ) { 
@@ -130,16 +130,23 @@ let getCoordsByCity = ( address ) => {
 
           let response = JSON.parse( xhr.responseText ); 
 
-          let location = response[0].display_name; //the location that was entered to search
-          
-          let newCard = `
-          <div class="card">
+          //the closest location found based on the  location name entered by the user. may not be the same location enter if it was entered wrong
+          let location = response[0].display_name; 
 
-          <div class="card-header" id="headingOne">
+          //this will be used for calling the get weather function.
+          let locationCoord = [ response[0].lat, response[0].lon ];
+
+          //gets the next card id.
+          cardId++;
+          
+        let newCard = `
+        <div class="card">
+
+          <div class="card-header" id="heading${cardId}">
 
             <h2 class="mb-0">
 
-              <button id="currName" class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapseOne">
+              <button id="Name${cardId}" class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse${cardId}" aria-controls="collapse${cardId}">
                 ${location}
               </button>
 
@@ -147,13 +154,13 @@ let getCoordsByCity = ( address ) => {
 
           </div>
       
-          <div id="collapse" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+          <div id="collapse${cardId}" class="collapse" aria-labelledby="heading${cardId}" data-parent="#accordionExample">
 
             <div class="card-body">
 
               <span>Weather Icon</span>
-              <p id="currTemp">Temp</p>
-              <p id="currWindSpeed">wind speed</p>
+              <p id="Temp${cardId}">Temp</p>
+              <p id="WindSpeed${cardId}">wind speed</p>
 
             </div>
 
@@ -162,8 +169,8 @@ let getCoordsByCity = ( address ) => {
         </div>
           `; //adds a new card on submit (still need to make aria-controls somehow dYnamic)
 
-          document.querySelector('.accordion').insertAdjacentHTML('afterend',newCard); //adds the card to the accordion
-
+          document.querySelector('.accordion').innerHTML += newCard; //adds the card to the accordion
+          getWeather( locationCoord, document.querySelector('#Temp' + cardId),  document.querySelector( '#WindSpeed'+cardId ) );
           return; 
 
       } 
