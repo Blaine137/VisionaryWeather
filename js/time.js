@@ -22,11 +22,14 @@ NIGHTTIME COLOR PALETTE:
 // Set variable to current date and time
 const now = new Date();
 const currentHour = now.getHours();
-
+console.log(currentHour)
 if(currentHour < 24 && currentHour > 12){
 
     //add styles for nighttime
-
+    if(document.querySelector('.jumbotron')){
+        document.querySelector('.jumbotron').style.backgroundImage = 'linear-gradient(to right, #002500, #495867 )';
+        document.querySelector('.jumbotron').style.color = '#A31621';
+    }
 } else{
 
     //add styles for daytime
