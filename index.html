@@ -7,6 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
 
     <title>Visionary Weather</title>
   </head>
@@ -18,75 +19,87 @@
 
     </header>
     
-    <div class="container mb-5">
+    <main>
 
-        <div class="row">
+      <div class="container mb-5">
 
-            <div class="col-12">
+          <div class="row">
 
-                <div class="input-group">
+              <div class="col-12">
 
-                    <div class="input-group-prepend">
+                  <div class="input-group">
 
-                        <button class="btn btn-outline-secondary" type="button" id="searchBtn">Search</button>
+                      <div class="input-group-prepend">
 
-                    </div>
+                          <button class="btn btn-outline-secondary" type="button" id="searchBtn">Search</button>
 
-                    <input id="searchAddress" type="text" class="form-control" placeholder="Enter a location" aria-label="location" aria-describedby="basic-addon1">
+                      </div>
 
-                  </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="container">
-
-        <div class="row">
-
-            <div class="col-12">
-
-              <div class="accordion" id="accordionExample">
-
-                <div class="card">
-
-                  <div class="card-header" id="headingOne">
-
-                    <h2 class="mb-0">
-
-                      <button id="currName" class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapseOne">
-                        Current Location
-                      </button>
-
-                    </h2>
-
-                  </div>
-              
-                  <div id="collapse" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-
-                    <div class="card-body">
-
-                      <span>Weather Icon</span>
-                      <p id="currTemp">Temp</p>
-                      <p id="currWindSpeed">wind speed</p>
+                      <input id="searchAddress" type="text" class="form-control" placeholder="Enter a location" aria-label="location" aria-describedby="basic-addon1">
 
                     </div>
-
-                  </div>
-
-                </div>
-
-               
 
               </div>
 
-            </div>
+          </div>
 
-        </div>
+      </div>
 
-    </div>
+      <div class="container">
+
+          <div class="row">
+
+              <div class="col-12">
+
+                <div class="accordion" id="accordionExample">
+
+                  <div class="card">
+
+                    <div class="card-header" id="headingOne">
+
+                      <h2 class="mb-0">
+
+                        <button id="currName" class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapseOne">
+                          Current Location
+                        </button>
+
+                      </h2>
+
+                    </div>
+                
+                    <div id="collapse" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+
+                      <div class="card-body text-center">
+
+                        <img class="image-responsive weatherImg" id="currWeatherImage" alt="Image representing current weather conditions">
+                        <p id="currTemp"></p>
+                        <p id="currFeelsLike"></p>
+                        <p id="currCondition"></p>
+                        <p id="currWindSpeed"></p>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                
+
+                </div>
+
+              </div>
+
+          </div>
+
+      </div>
+
+    </main>
+
+    <footer class="mt-5 p-3">
+
+      <img src="images/climacell//powered-by-climacell/powered_by_climacell_black.svg" alt=" Weather information is provided by Climacell">
+
+    </footer>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -95,5 +108,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="/js/keys.js"></script>
     <script src="/js/scripts.js"></script>
+    <script src="/js/time.js"></script>
+
   </body>
+  
 </html>

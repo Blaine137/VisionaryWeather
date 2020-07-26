@@ -9,7 +9,7 @@ const options = {
 
 // gets ands sets the weather for a locations.
 // elementTemp and elementWind are dom elements. coordinates is an array of lat and long for the location we are retrieving weather for.
-let getWeather = ( coordinates, elementTemp, elementWind) => {
+let getWeather = ( coordinates, elementTemp, elementFeelsLike, elementWind, elementCondition, elementWeatherImg) => {
 
   var data = null;
 
@@ -21,7 +21,7 @@ let getWeather = ( coordinates, elementTemp, elementWind) => {
    
       //data is object/array that contains weather information for a given location
       let data = Object.entries( JSON.parse( this.responseText ) ); 
-
+   
       //console log data[0] to see if we are out of free request to the weather api
       //console.log(data[0]);
 
@@ -32,19 +32,33 @@ let getWeather = ( coordinates, elementTemp, elementWind) => {
       //set the location temp
       elementTemp.innerHTML = "Current Temp: " + currentTemp;
 
+      //get feels like
+      let feelsLike = data[ 3 ][ 1 ].value;
+      //set feels like
+      elementFeelsLike.innerHTML = "Feels Like " + feelsLike + " F";
+
       //gets the current wind speed
-      let windSpeedData = Object.entries(data[ 3 ][ 1 ] );
+      let windSpeedData = Object.entries(data[ 4 ][ 1 ] );
       let currentWindSpeed = windSpeedData[ 0 ] [1 ] + " " + windSpeedData[ 1 ][ 1 ];
 
       //set the location wind speed
       elementWind.innerHTML = "Wind Speed: " + currentWindSpeed;
       
+      //get weather code
+      let weatherCondition = data[5][1].value;
+
+      //set weather code
+      elementCondition.innerHTML = "There is currently " + weatherCondition + " outside.";
+      
+      //set src of image to correct image. the weather code is the name of the corresponding image
+      elementWeatherImg.src = "images/climacell/color/" + weatherCondition + ".svg";
+
     }
 
   });
 
   //get weather for given coordinates
-  xhr.open( "GET", "https://api.climacell.co/v3/weather/realtime?lat=" + coordinates[ 0 ] + "&lon="+ coordinates[ 1 ]+ "&unit_system=us&fields=temp,wind_speed,precipitation,precipitation_type&apikey=" + weatherApiKey );
+  xhr.open( "GET", "https://api.climacell.co/v3/weather/realtime?lat=" + coordinates[ 0 ] + "&lon="+ coordinates[ 1 ]+ "&unit_system=us&fields=temp,wind_speed,weather_code,feels_like&apikey=" + weatherApiKey );
 
   xhr.send( data );
 
@@ -64,7 +78,7 @@ let success = ( pos ) => {
   let coordinates = [pos.coords.latitude.toString( ), pos.coords.longitude.toString( ) ]; 
 
   getCityName( coordinates, document.getElementById('currName') );
-  getWeather( coordinates, document.getElementById('currTemp'), document.getElementById('currWindSpeed') ); 
+  getWeather( coordinates, document.getElementById('currTemp'), document.getElementById('currFeelsLike') , document.getElementById('currWindSpeed'),  document.getElementById('currCondition'), document.getElementById('currWeatherImage') ); 
   return; 
 
 } //success()
@@ -156,11 +170,13 @@ let getCoordsByCity = ( address ) => {
       
           <div id="collapse${cardId}" class="collapse" aria-labelledby="heading${cardId}" data-parent="#accordionExample">
 
-            <div class="card-body">
+            <div class="card-body text-center">
 
-              <span>Weather Icon</span>
-              <p id="Temp${cardId}">Temp</p>
-              <p id="WindSpeed${cardId}">wind speed</p>
+              <img class="weatherImg image-responsive" id="weatherImage${cardId}" alt="Image representing current weather conditions">
+              <p id="Temp${cardId}"></p>
+              <p id="feelsLike${cardId}"></p>
+              <p id="condition${cardId}"></p>
+              <p id="WindSpeed${cardId}"></p>
 
             </div>
 
@@ -170,7 +186,8 @@ let getCoordsByCity = ( address ) => {
           `; //adds a new card on submit (still need to make aria-controls somehow dYnamic)
 
           document.querySelector('.accordion').innerHTML += newCard; //adds the card to the accordion
-          getWeather( locationCoord, document.querySelector('#Temp' + cardId),  document.querySelector( '#WindSpeed'+cardId ) );
+          getWeather( locationCoord, document.querySelector('#Temp' + cardId), document.querySelector('#feelsLike' + cardId),  document.querySelector( '#WindSpeed' + cardId ), document.querySelector( '#condition' + cardId ),  document.querySelector( '#weatherImage' + cardId ) );
+
           return; 
 
       } 
