@@ -34,22 +34,22 @@ let getWeather = ( coordinates, elementTemp, elementFeelsLike, elementWind, elem
 
       //wind speed
       let currentWindSpeed = data[ 4 ] [1 ].value;
-      elementWind.innerHTML = "Wind Speed: " + parseInt( currentWindSpeed ) + " mph";
+      elementWind.innerHTML = "Wind speed is " + parseInt( currentWindSpeed ) + " mph";
 
       //visibility
-      let visibility = "visibility: " + parseInt(data[5][1].value) + " miles";
+      let visibility = "visibility distance is " + parseInt(data[5][1].value) + " miles";
       elementVisibility.innerHTML = visibility;
 
       //humidity
-      let humidity = "Humidity: " + data[6][1].value + "&percnt;";
+      let humidity = "Humidity level is " + data[6][1].value + "&percnt;";
       elementHumidity.innerHTML = humidity;
 
       //sunrise
-      let sunrise = "Sunrise: " + data[7][1].value;
+      let sunrise = "Sunrise at " + data[7][1].value;
       elementSunrise.innerHTML = sunrise;
 
       //sunset 
-      let sunset = "Sunset: " + data[8][1].value;
+      let sunset = "Sunset at " + data[8][1].value;
       elementSunset.innerHTML = sunset;
 
       //weather code
