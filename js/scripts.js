@@ -21,7 +21,6 @@ let getWeather = ( coordinates, elementTemp, elementFeelsLike, elementWind, elem
       
       //data is object/array that contains weather information for a given location
       let data = Object.entries( JSON.parse( this.responseText ) ); 
-      console.log(data);
 
       //temp
       let tempData = Object.entries( data[ 2 ][ 1 ] );
