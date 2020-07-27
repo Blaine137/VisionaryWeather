@@ -4,7 +4,8 @@
 const now = new Date();
 const currentHour = now.getHours();
 
-if(currentHour < 24 && currentHour > 12){
+//if it is after 8pm amd before 6am
+if( currentHour < 6 && currentHour > 20 ){
 
     //add styles for nighttime
 

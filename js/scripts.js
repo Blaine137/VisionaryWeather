@@ -9,7 +9,7 @@ const options = {
 
 // gets ands sets the weather for a locations.
 // elementTemp and elementWind are dom elements. coordinates is an array of lat and long for the location we are retrieving weather for.
-let getWeather = ( coordinates, elementTemp, elementFeelsLike, elementWind, elementCondition, elementWeatherImg) => {
+let getWeather = ( coordinates, elementTemp, elementFeelsLike, elementWind, elementVisibility, elementHumidity, elementSunrise, elementSunset,  elementCondition, elementAir, elementWeatherImg ) => {
 
   var data = null;
 
@@ -18,47 +18,88 @@ let getWeather = ( coordinates, elementTemp, elementFeelsLike, elementWind, elem
   xhr.addEventListener("readystatechange", function () {
 
     if ( this.readyState === this.DONE ) {
-   
+      
       //data is object/array that contains weather information for a given location
       let data = Object.entries( JSON.parse( this.responseText ) ); 
-   
-      //console log data[0] to see if we are out of free request to the weather api
-      //console.log(data[0]);
+      console.log(data);
 
-      //gets the location temp
+      //temp
       let tempData = Object.entries( data[ 2 ][ 1 ] );
-      let currentTemp = tempData[ 0 ][ 1 ] + " " + tempData[ 1 ][ 1 ];
+      let currentTemp = parseInt( tempData[ 0 ][ 1 ] );
+      elementTemp.innerHTML = currentTemp + "&deg outside. ";
 
-      //set the location temp
-      elementTemp.innerHTML = "Current Temp: " + currentTemp;
+      //feels like
+      let feelsLike = parseInt( data[ 3 ][ 1 ].value );
+      elementFeelsLike.innerHTML = "Feels Like " + feelsLike + "&deg";
 
-      //get feels like
-      let feelsLike = data[ 3 ][ 1 ].value;
-      //set feels like
-      elementFeelsLike.innerHTML = "Feels Like " + feelsLike + " F";
+      //wind speed
+      let currentWindSpeed = data[ 4 ] [1 ].value;
+      elementWind.innerHTML = "Wind Speed: " + parseInt( currentWindSpeed ) + " mph";
 
-      //gets the current wind speed
-      let windSpeedData = Object.entries(data[ 4 ][ 1 ] );
-      let currentWindSpeed = windSpeedData[ 0 ] [1 ] + " " + windSpeedData[ 1 ][ 1 ];
+      //visibility
+      let visibility = "visibility: " + parseInt(data[5][1].value) + " miles";
+      elementVisibility.innerHTML = visibility;
 
-      //set the location wind speed
-      elementWind.innerHTML = "Wind Speed: " + currentWindSpeed;
+      //humidity
+      let humidity = "Humidity: " + data[6][1].value + "&percnt;";
+      elementHumidity.innerHTML = humidity;
+
+      //sunrise
+      let sunrise = "Sunrise: " + data[7][1].value;
+      elementSunrise.innerHTML = sunrise;
+
+      //sunset 
+      let sunset = "Sunset: " + data[8][1].value;
+      elementSunset.innerHTML = sunset;
+
+      //weather code
+      let weatherCondition = data[9][1].value;
+      elementCondition.innerHTML =  weatherCondition.replace("_", " ");
+
+      //air quality
+      let airQuality = "Air Quality is " + data[10][1].value;
+      elementAir.innerHTML = airQuality;
       
-      //get weather code
-      let weatherCondition = data[5][1].value;
+      // ----- set image of current weather -----
 
-      //set weather code
-      elementCondition.innerHTML = "There is currently " + weatherCondition + " outside.";
+        //the weather code is the name of the corresponding image
+        //if its a weather img that has day/night versions
+        if ( weatherCondition == "partly_cloudy" || weatherCondition == "mostly_clear" || weatherCondition == "clear" ){
+
+          let currentHour = now.getHours();
+
+          //if it is after 8pm amd before 6am
+          if(currentHour < 6 && currentHour > 20){
+
+            //night 
+            elementWeatherImg.src = "images/climacell/color/" + weatherCondition + "_night.svg";
+
+          } else {
+
+            //day
+            elementWeatherImg.src = "images/climacell/color/" + weatherCondition + "_day.svg";
+
+          }//else if (day or night)
+
+        } else {
+
+          //no day night versions of image
+          elementWeatherImg.src = "images/climacell/color/" + weatherCondition + ".svg";
+
+        }//else if(weather condition = ...)
+
+      // ----- end of set image of current weather -----
+
       
-      //set src of image to correct image. the weather code is the name of the corresponding image
-      elementWeatherImg.src = "images/climacell/color/" + weatherCondition + ".svg";
 
-    }
+    }//if readystate
 
-  });
+  });//readystate event
+
+  let fields = "temp,wind_speed,weather_code,feels_like,epa_health_concern,visibility,sunrise,sunset,humidity"
 
   //get weather for given coordinates
-  xhr.open( "GET", "https://api.climacell.co/v3/weather/realtime?lat=" + coordinates[ 0 ] + "&lon="+ coordinates[ 1 ]+ "&unit_system=us&fields=temp,wind_speed,weather_code,feels_like&apikey=" + weatherApiKey );
+  xhr.open( "GET", "https://api.climacell.co/v3/weather/realtime?lat=" + coordinates[ 0 ] + "&lon="+ coordinates[ 1 ]+ "&unit_system=us&fields=" + fields + "&apikey=" + weatherApiKey );
 
   xhr.send( data );
 
@@ -78,7 +119,7 @@ let success = ( pos ) => {
   let coordinates = [pos.coords.latitude.toString( ), pos.coords.longitude.toString( ) ]; 
 
   getCityName( coordinates, document.getElementById('currName') );
-  getWeather( coordinates, document.getElementById('currTemp'), document.getElementById('currFeelsLike') , document.getElementById('currWindSpeed'),  document.getElementById('currCondition'), document.getElementById('currWeatherImage') ); 
+  getWeather( coordinates, document.getElementById('currTemp'), document.getElementById('currFeelsLike') , document.getElementById('currWindSpeed'), document.getElementById('currVisibility'), document.getElementById("currHumidity"), document.getElementById('currSunrise'), document.getElementById('currSunset'),  document.getElementById('currCondition'),document.getElementById("currAirQuality"), document.getElementById('currWeatherImage') ); 
   return; 
 
 } //success()
@@ -160,7 +201,7 @@ let getCoordsByCity = ( address ) => {
 
             <h2 class="mb-0">
 
-              <button id="Name${cardId}" class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse${cardId}" aria-controls="collapse${cardId}">
+              <button id="Name${cardId}" class="btn btn-link btn-block text-left cardBtn" type="button" data-toggle="collapse" data-target="#collapse${cardId}" aria-controls="collapse${cardId}">
                 ${location}
               </button>
 
@@ -173,10 +214,28 @@ let getCoordsByCity = ( address ) => {
             <div class="card-body text-center">
 
               <img class="weatherImg image-responsive" id="weatherImage${cardId}" alt="Image representing current weather conditions">
-              <p id="Temp${cardId}"></p>
-              <p id="feelsLike${cardId}"></p>
+              <p> <span id="Temp${cardId}"></span> <span id="feelsLike${cardId}"></span> </p>   
               <p id="condition${cardId}"></p>
-              <p id="WindSpeed${cardId}"></p>
+              
+              <div class="row">
+
+              <div class="col-sm-6">
+
+                <p id="windSpeed${cardId}"></p>
+                <p id="humidity${cardId}"></p>
+                <p id="airQuality${cardId}"></p>
+
+              </div>
+
+              <div class="col-sm-6">
+                
+                <p id="sunrise${cardId}"></p>
+                <p id="sunset${cardId}"></p>
+                <p id="visibility${cardId}"></p>
+
+              </div>
+
+            </div>
 
             </div>
 
@@ -185,8 +244,10 @@ let getCoordsByCity = ( address ) => {
         </div>
           `; //adds a new card on submit (still need to make aria-controls somehow dYnamic)
 
-          document.querySelector('.accordion').innerHTML += newCard; //adds the card to the accordion
-          getWeather( locationCoord, document.querySelector('#Temp' + cardId), document.querySelector('#feelsLike' + cardId),  document.querySelector( '#WindSpeed' + cardId ), document.querySelector( '#condition' + cardId ),  document.querySelector( '#weatherImage' + cardId ) );
+          //adds the card to the accordion
+          document.querySelector('.accordion').innerHTML += newCard; 
+          //coordinates, elementTemp, elementFeelsLike, elementWind, elementVisibility, elementHumidity, elementSunrise, elementSunset,  elementCondition, elementAir, elementWeatherImg
+          getWeather( locationCoord, document.querySelector('#Temp' + cardId), document.querySelector('#feelsLike' + cardId),  document.querySelector( '#windSpeed' + cardId ), document.querySelector( '#visibility' + cardId ), document.querySelector( '#humidity' + cardId ), document.querySelector( '#sunrise' + cardId ), document.querySelector( '#sunset' + cardId ), document.querySelector( '#condition' + cardId ), document.querySelector( '#airQuality' + cardId ),  document.querySelector( '#weatherImage' + cardId ) );
 
           return; 
 

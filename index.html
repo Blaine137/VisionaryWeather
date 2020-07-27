@@ -59,7 +59,7 @@
 
                       <h2 class="mb-0">
 
-                        <button id="currName cardBtn" class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapseOne">
+                        <button id="currName" class="btn btn-link btn-block text-left cardBtn" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapseOne">
                           Current Location
                         </button>
 
@@ -72,11 +72,29 @@
                       <div class="card-body text-center">
 
                         <img class="image-responsive weatherImg" id="currWeatherImage" alt="Image representing current weather conditions">
-                        <p id="currTemp"></p>
-                        <p id="currFeelsLike"></p>
+                        <p> <span id="currTemp"></span> <span id="currFeelsLike"></span> </p>
                         <p id="currCondition"></p>
-                        <p id="currWindSpeed"></p>
+                        
+                        <div class="row">
 
+                          <div class="col-sm-6">
+
+                            <p id="currWindSpeed"></p>
+                            <p id="currHumidity"></p>
+                            <p id="currAirQuality"></p>
+
+                          </div>
+
+                          <div class="col-sm-6">
+                            
+                            <p id="currSunrise"></p>
+                            <p id="currSunset"></p>
+                            <p id="currVisibility"></p>
+
+                          </div>
+
+                        </div>
+                       
                       </div>
 
                     </div>
