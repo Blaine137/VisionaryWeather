@@ -1,3 +1,63 @@
+/*
+
+DAYTIME COLOR PALETTE:
+
+    Blue Violet: #541388
+    Dogwood Rose: #D90368
+    eggshell: #F1E9DA
+    Space Cadet: #2E294E
+    Cyber Yellow: #FFD400
+
+NIGHTTIME COLOR PALETTE:
+
+    Black Coral: #495867
+    Ruby Red: #A31621
+    Medium Turquoise: #4DCCBD
+    Dark Green: #002500
+    Dark Orange: #FF8811
+
+
+*/
+
+    /*DAYTIME STYLES*/
+.dayTimeHeader, footer{
+    background-image: linear-gradient(to right, #541388, #D90368);
+    color: #F1E9DA;
+}
+
+.dayTimeBtn{
+    background-color: #D90368;
+    color: #F1E9DA;
+}
+
+.dayTimeBtn:hover, .dayTimeBtn:active{
+    background-color: #2E294E !important;
+    border: none !important;
+}
+
+.dayTimeBtn:focus{
+    box-shadow: none !important;
+    
+}
+
+.dayTimeSearchAddress{
+    border-color: #D90368;
+}
+
+.dayTimeSearchAddress:focus{
+    box-shadow: none;
+    border-color: #2E294E;
+}
+
+.dayTimeCardHeader{
+    background-color: #2E294E;
+}
+
+.dayTimeCardButton{
+    color: #FFD400;
+    box-shadow: none;
+}
+
 .weatherImg {
     height: 10rem;
 }
