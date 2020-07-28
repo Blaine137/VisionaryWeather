@@ -40,7 +40,7 @@ let getWeather = ( coordinates, elementTemp, elementFeelsLike, elementWind, elem
       elementVisibility.innerHTML = visibility;
 
       //humidity
-      let humidity = "Humidity level is " + data[6][1].value + "&percnt;";
+      let humidity = "Humidity level is " + parseInt( data[6][1].value ) + "&percnt;";
       elementHumidity.innerHTML = humidity;
 
       //sunrise
@@ -193,16 +193,17 @@ let getCoordsByCity = ( address ) => {
           //gets the next card id.
           cardId++;
           
-          if(currentHour < 6 && currentHour > 20){
+          if(currentHour < 6 || currentHour > 20 ){
 
+              //NIGHT TIME STYLES
             var newCard = `
             <div class="card">
     
-              <div class="card-header dayTimeCardHeader" id="heading${cardId}">
+              <div class="card-header nightTimeCardHeader" id="heading${cardId}">
     
                 <h2 class="mb-0">
     
-                  <button id="Name${cardId}" class="btn btn-link btn-block text-left cardBtn" type="button dayTimeCardButton" data-toggle="collapse" data-target="#collapse${cardId}" aria-controls="collapse${cardId}">
+                  <button id="Name${cardId}" class="btn btn-link btn-block text-left cardBtn nightTimeCardButton" type="button" data-toggle="collapse" data-target="#collapse${cardId}" aria-controls="collapse${cardId}">
                     ${location}
                   </button>
     
@@ -247,14 +248,15 @@ let getCoordsByCity = ( address ) => {
 
           }else{
 
+              //DAY TIME STYLER
             var newCard = `
             <div class="card">
     
-              <div class="card-header nightTimeCardHeader" id="heading${cardId}">
+              <div class="card-header dayTimeCardHeader" id="heading${cardId}">
     
                 <h2 class="mb-0">
     
-                  <button id="Name${cardId}" class="btn btn-link btn-block text-left cardBtn nightTimeCardButton" type="button" data-toggle="collapse" data-target="#collapse${cardId}" aria-controls="collapse${cardId}">
+                  <button id="Name${cardId}" class="btn btn-link btn-block text-left cardBtn dayTimeCardButton" type="button" data-toggle="collapse" data-target="#collapse${cardId}" aria-controls="collapse${cardId}">
                     ${location}
                   </button>
     
