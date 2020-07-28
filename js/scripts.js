@@ -9,7 +9,7 @@ const options = {
 
 // gets ands sets the weather for a locations.
 // elementTemp and elementWind are dom elements. coordinates is an array of lat and long for the location we are retrieving weather for.
-let getWeather = ( coordinates, elementTemp, elementFeelsLike, elementWind, elementVisibility, elementHumidity, elementSunrise, elementSunset,  elementCondition, elementAir, elementWeatherImg ) => {
+let getWeather = ( coordinates, elementTemp, elementFeelsLike, elementWind, elementVisibility, elementHumidity, elementSunrise, elementSunset,  elementCondition, elementAir, elementWeatherImg, elementPrecipitation, elementPrecipitationType ) => {
 
   var data = null;
 
@@ -21,7 +21,7 @@ let getWeather = ( coordinates, elementTemp, elementFeelsLike, elementWind, elem
       
       //data is object/array that contains weather information for a given location
       let data = Object.entries( JSON.parse( this.responseText ) ); 
-
+      console.log(data);
       //temp
       let tempData = Object.entries( data[ 2 ][ 1 ] );
       let currentTemp = parseInt( tempData[ 0 ][ 1 ] );
@@ -58,6 +58,14 @@ let getWeather = ( coordinates, elementTemp, elementFeelsLike, elementWind, elem
       //air quality
       let airQuality = "Air Quality is " + data[10][1].value;
       elementAir.innerHTML = airQuality;
+
+      //precipitation
+      let precipitation = "Precipitation is " + data[7][1].value + "%"
+      elementPrecipitation.innerHTML = precipitation;
+
+      //precipitation_type
+      let precipitation_type = "Precipitation type is " + data[8][1].value;
+      elementPrecipitationType.innerHTML = precipitation_type;
       
       // ----- set image of current weather -----
 
@@ -95,7 +103,7 @@ let getWeather = ( coordinates, elementTemp, elementFeelsLike, elementWind, elem
 
   });//readystate event
 
-  let fields = "temp,wind_speed,weather_code,feels_like,epa_health_concern,visibility,sunrise,sunset,humidity"
+  let fields = "temp,wind_speed,weather_code,feels_like,epa_health_concern,visibility,sunrise,sunset,humidity,precipitation,precipitation_type"
 
   //get weather for given coordinates
   xhr.open( "GET", "https://api.climacell.co/v3/weather/realtime?lat=" + coordinates[ 0 ] + "&lon="+ coordinates[ 1 ]+ "&unit_system=us&fields=" + fields + "&apikey=" + weatherApiKey );
@@ -118,7 +126,7 @@ let success = ( pos ) => {
   let coordinates = [pos.coords.latitude.toString( ), pos.coords.longitude.toString( ) ]; 
 
   getCityName( coordinates, document.getElementById('currName') );
-  getWeather( coordinates, document.getElementById('currTemp'), document.getElementById('currFeelsLike') , document.getElementById('currWindSpeed'), document.getElementById('currVisibility'), document.getElementById("currHumidity"), document.getElementById('currSunrise'), document.getElementById('currSunset'),  document.getElementById('currCondition'),document.getElementById("currAirQuality"), document.getElementById('currWeatherImage') ); 
+  getWeather( coordinates, document.getElementById('currTemp'), document.getElementById('currFeelsLike') , document.getElementById('currWindSpeed'), document.getElementById('currVisibility'), document.getElementById("currHumidity"), document.getElementById('currSunrise'), document.getElementById('currSunset'),  document.getElementById('currCondition'),document.getElementById("currAirQuality"), document.getElementById('currWeatherImage'), document.getElementById('currPrecipitation'), document.getElementById('currPrecipitationType') ); 
   return; 
 
 } //success()
@@ -226,6 +234,7 @@ let getCoordsByCity = ( address ) => {
                     <p id="windSpeed${cardId}"></p>
                     <p id="humidity${cardId}"></p>
                     <p id="airQuality${cardId}"></p>
+                    <p id="precipitation${cardId}"></p>
     
                   </div>
     
@@ -234,6 +243,7 @@ let getCoordsByCity = ( address ) => {
                     <p id="sunrise${cardId}"></p>
                     <p id="sunset${cardId}"></p>
                     <p id="visibility${cardId}"></p>
+                    <p id="precipitationType${cardId}"></p>
     
                   </div>
     
@@ -279,6 +289,7 @@ let getCoordsByCity = ( address ) => {
                     <p id="windSpeed${cardId}"></p>
                     <p id="humidity${cardId}"></p>
                     <p id="airQuality${cardId}"></p>
+                    <p id="precipitation${cardId}"></p>
     
                   </div>
     
@@ -287,6 +298,7 @@ let getCoordsByCity = ( address ) => {
                     <p id="sunrise${cardId}"></p>
                     <p id="sunset${cardId}"></p>
                     <p id="visibility${cardId}"></p>
+                    <p id="precipitationType${cardId}"></p>
     
                   </div>
     
@@ -306,7 +318,7 @@ let getCoordsByCity = ( address ) => {
           //adds the card to the accordion
           document.querySelector('.accordion').innerHTML += newCard; 
           //coordinates, elementTemp, elementFeelsLike, elementWind, elementVisibility, elementHumidity, elementSunrise, elementSunset,  elementCondition, elementAir, elementWeatherImg
-          getWeather( locationCoord, document.querySelector('#Temp' + cardId), document.querySelector('#feelsLike' + cardId),  document.querySelector( '#windSpeed' + cardId ), document.querySelector( '#visibility' + cardId ), document.querySelector( '#humidity' + cardId ), document.querySelector( '#sunrise' + cardId ), document.querySelector( '#sunset' + cardId ), document.querySelector( '#condition' + cardId ), document.querySelector( '#airQuality' + cardId ),  document.querySelector( '#weatherImage' + cardId ) );
+          getWeather( locationCoord, document.querySelector('#Temp' + cardId), document.querySelector('#feelsLike' + cardId),  document.querySelector( '#windSpeed' + cardId ), document.querySelector( '#visibility' + cardId ), document.querySelector( '#humidity' + cardId ), document.querySelector( '#sunrise' + cardId ), document.querySelector( '#sunset' + cardId ), document.querySelector( '#condition' + cardId ), document.querySelector( '#airQuality' + cardId ),  document.querySelector( '#weatherImage' + cardId ), document.getElementById("precipitation" + cardId), document.getElementById("precipitationType" + cardId) );
 
           return; 
 
