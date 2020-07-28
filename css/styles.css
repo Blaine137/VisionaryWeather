@@ -18,16 +18,25 @@ NIGHTTIME COLOR PALETTE:
 
 
 */
-
+main {
+    min-height: 90vh;
+}
     /*DAYTIME STYLES*/
-.dayTimeHeader, .dayTimeFooter{
-    background-image: linear-gradient(to right, #541388, #D90368);
+/*.dayTimeHeader, .dayTimeFooter{
+    /* background-image: linear-gradient(to right, #541388, #D90368); */
+    /*background-color: #541388;
     color: #F1E9DA;
+}*/
+
+
+footer {
+    border-top: lightgray 1px solid;
 }
 
 .dayTimeBtn{
-    background-color: #D90368;
-    color: #F1E9DA;
+    background-color: #FFD400;
+    color: #2E294E;
+    border: lightgray 1px solid;
 }
 
 .dayTimeBtn:hover, .dayTimeBtn:active{
@@ -37,47 +46,70 @@ NIGHTTIME COLOR PALETTE:
 
 .dayTimeBtn:focus{
     box-shadow: none !important;
-    
 }
 
 .dayTimeSearchAddress{
-    border-color: #D90368;
+    background-color: #f6f6f6;
+    border-color: #2E294E;
+    border: lightgray 1px solid;
 }
 
 .dayTimeSearchAddress:focus{
     box-shadow: none;
     border-color: #2E294E;
-}
+} 
 
 .dayTimeCardHeader{
-    background-color: #2E294E;
+    background-color: #FFD400;
 }
 
 .dayTimeCardButton{
-    color: #FFD400;
+    color: #2E294E;
     box-shadow: none;
 }
 
 .dayTimeCardButton:hover{
-    color: rgba(255, 212, 0, 0.7);
+    color: #2E294E;
 }
 
 .dayTimeCardButton:focus{
     box-shadow: none;
 }
+.dayTimeCardBg{
+    background-color: #f6f6f6;
+}
 
+.dayTimeFooter {
+    background-color: #FFD400;
+    color: #2E294E;
+}
 .weatherImg {
     height: 10rem;
 }
 
-
-    /*NIGHTTIME STYLES*/
-.nightTimeHeader, .nightTimeFooter{
-    background-image: linear-gradient(to right, #242038, #9E0031 );
-    color: #F28F3B;
+.footerBrand{
+    height: 2rem;
 }
 
-.nightTimeBtn{
-    background-color: #9E0031 !important;
-    color: #086375;
+    /*NIGHTTIME STYLES*/
+/*.nightTimeHeader, .nightTimeFooter{
+    background-image: linear-gradient(to right, #242038, #9E0031 );
+    color: #F28F3B;
+}*/
+.nightTimeBackground{
+    background-color:  #c8cdd0;
+}
+.nightTimeBtn, .nightTimeCardButton{
+    background-color: #086375;
+    color: white !important;
+}
+.nightTimeCardBg, .nightTimeSearchAddress{
+    background-color: 	 #e4e6e7;
+}
+.nightTimeCardHeader {
+    background-color: #086375;
+    color: white;
+}
+.nightTimeFooter {
+    background-color: #086375;
 }

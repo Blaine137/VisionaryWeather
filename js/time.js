@@ -6,11 +6,11 @@ const currentHour = now.getHours();
 
 //if it is after 8pm amd before 6am
 if( currentHour < 6 || currentHour > 20 ){
-
+    console.log("night")
     //add styles for nighttime
-    if(document.querySelector('.jumbotron')){
+    /*if(document.querySelector('.jumbotron')){
         document.querySelector('.jumbotron').classList.add('nightTimeHeader');
-    }
+    }*/
 
     if(document.querySelector('footer')){
         document.querySelector('footer').classList.add('nightTimeFooter');
@@ -31,13 +31,20 @@ if( currentHour < 6 || currentHour > 20 ){
     if(document.querySelector('#currName')){
         document.querySelector('#currName').classList.add('nightTimeCardButton');
     }
+    if( document.querySelector('body') ) {
+        document.querySelector('body').classList.add('nightTimeBackground');
+    }  
+    if( document.querySelector('.card-body') ) {
+        document.querySelector('.card-body').classList.add('nightTimeCardBg');
+    }
+    
 
 } else{
-
+    console.log("day");
     //add styles for daytime
-    if(document.querySelector('.jumbotron')){
+    /*if(document.querySelector('.jumbotron')){
         document.querySelector('.jumbotron').classList.add('dayTimeHeader');
-    }
+    }*/
 
     if(document.querySelector('footer')){
         document.querySelector('footer').classList.add('dayTimeFooter');
@@ -53,6 +60,9 @@ if( currentHour < 6 || currentHour > 20 ){
 
     if(document.querySelector('.card-header')){
         document.querySelector('.card-header').classList.add('dayTimeCardHeader');
+    }
+    if( document.querySelector('.card-body') ) {
+        document.querySelector('.card-body').classList.add('dayTimeCardBg');
     }
 
     if(document.querySelector('#currName')){
