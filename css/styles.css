@@ -10,17 +10,17 @@ DAYTIME COLOR PALETTE:
 
 NIGHTTIME COLOR PALETTE:
 
-    Black Coral: #495867
-    Ruby Red: #A31621
-    Medium Turquoise: #4DCCBD
-    Dark Green: #002500
-    Dark Orange: #FF8811
+    Dark purple: #242038
+    Vivid burgundy: #9E0031
+    Cadat gray: #99A1A6
+    Cadmium orange: F28F3B
+    Blue sapphire: #086375
 
 
 */
 
     /*DAYTIME STYLES*/
-.dayTimeHeader, footer{
+.dayTimeHeader, .dayTimeFooter{
     background-image: linear-gradient(to right, #541388, #D90368);
     color: #F1E9DA;
 }
@@ -58,6 +58,26 @@ NIGHTTIME COLOR PALETTE:
     box-shadow: none;
 }
 
+.dayTimeCardButton:hover{
+    color: rgba(255, 212, 0, 0.7);
+}
+
+.dayTimeCardButton:focus{
+    box-shadow: none;
+}
+
 .weatherImg {
     height: 10rem;
+}
+
+
+    /*NIGHTTIME STYLES*/
+.nightTimeHeader, .nightTimeFooter{
+    background-image: linear-gradient(to right, #242038, #9E0031 );
+    color: #F28F3B;
+}
+
+.nightTimeBtn{
+    background-color: #9E0031 !important;
+    color: #086375;
 }

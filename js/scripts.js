@@ -193,55 +193,113 @@ let getCoordsByCity = ( address ) => {
           //gets the next card id.
           cardId++;
           
-        let newCard = `
-        <div class="card">
+          if(currentHour < 6 && currentHour > 20){
 
-          <div class="card-header" id="heading${cardId}">
-
-            <h2 class="mb-0">
-
-              <button id="Name${cardId}" class="btn btn-link btn-block text-left cardBtn" type="button" data-toggle="collapse" data-target="#collapse${cardId}" aria-controls="collapse${cardId}">
-                ${location}
-              </button>
-
-            </h2>
-
-          </div>
-      
-          <div id="collapse${cardId}" class="collapse" aria-labelledby="heading${cardId}" data-parent="#accordionExample">
-
-            <div class="card-body text-center">
-
-              <img class="weatherImg image-responsive" id="weatherImage${cardId}" alt="Image representing current weather conditions">
-              <p> <span id="Temp${cardId}"></span> <span id="feelsLike${cardId}"></span> </p>   
-              <p id="condition${cardId}"></p>
-              
-              <div class="row">
-
-              <div class="col-sm-6">
-
-                <p id="windSpeed${cardId}"></p>
-                <p id="humidity${cardId}"></p>
-                <p id="airQuality${cardId}"></p>
-
+            var newCard = `
+            <div class="card">
+    
+              <div class="card-header dayTimeCardHeader" id="heading${cardId}">
+    
+                <h2 class="mb-0">
+    
+                  <button id="Name${cardId}" class="btn btn-link btn-block text-left cardBtn" type="button dayTimeCardButton" data-toggle="collapse" data-target="#collapse${cardId}" aria-controls="collapse${cardId}">
+                    ${location}
+                  </button>
+    
+                </h2>
+    
               </div>
-
-              <div class="col-sm-6">
-                
-                <p id="sunrise${cardId}"></p>
-                <p id="sunset${cardId}"></p>
-                <p id="visibility${cardId}"></p>
-
+          
+              <div id="collapse${cardId}" class="collapse" aria-labelledby="heading${cardId}" data-parent="#accordionExample">
+    
+                <div class="card-body text-center">
+    
+                  <img class="weatherImg image-responsive" id="weatherImage${cardId}" alt="Image representing current weather conditions">
+                  <p> <span id="Temp${cardId}"></span> <span id="feelsLike${cardId}"></span> </p>   
+                  <p id="condition${cardId}"></p>
+                  
+                  <div class="row">
+    
+                  <div class="col-sm-6">
+    
+                    <p id="windSpeed${cardId}"></p>
+                    <p id="humidity${cardId}"></p>
+                    <p id="airQuality${cardId}"></p>
+    
+                  </div>
+    
+                  <div class="col-sm-6">
+                    
+                    <p id="sunrise${cardId}"></p>
+                    <p id="sunset${cardId}"></p>
+                    <p id="visibility${cardId}"></p>
+    
+                  </div>
+    
+                </div>
+    
+                </div>
+    
               </div>
-
+    
             </div>
+              `; //adds a new card on submit (still need to make aria-controls somehow dYnamic)
 
+          }else{
+
+            var newCard = `
+            <div class="card">
+    
+              <div class="card-header nightTimeCardHeader" id="heading${cardId}">
+    
+                <h2 class="mb-0">
+    
+                  <button id="Name${cardId}" class="btn btn-link btn-block text-left cardBtn nightTimeCardButton" type="button" data-toggle="collapse" data-target="#collapse${cardId}" aria-controls="collapse${cardId}">
+                    ${location}
+                  </button>
+    
+                </h2>
+    
+              </div>
+          
+              <div id="collapse${cardId}" class="collapse" aria-labelledby="heading${cardId}" data-parent="#accordionExample">
+    
+                <div class="card-body text-center">
+    
+                  <img class="weatherImg image-responsive" id="weatherImage${cardId}" alt="Image representing current weather conditions">
+                  <p> <span id="Temp${cardId}"></span> <span id="feelsLike${cardId}"></span> </p>   
+                  <p id="condition${cardId}"></p>
+                  
+                  <div class="row">
+    
+                  <div class="col-sm-6">
+    
+                    <p id="windSpeed${cardId}"></p>
+                    <p id="humidity${cardId}"></p>
+                    <p id="airQuality${cardId}"></p>
+    
+                  </div>
+    
+                  <div class="col-sm-6">
+                    
+                    <p id="sunrise${cardId}"></p>
+                    <p id="sunset${cardId}"></p>
+                    <p id="visibility${cardId}"></p>
+    
+                  </div>
+    
+                </div>
+    
+                </div>
+    
+              </div>
+    
             </div>
+              `; //adds a new card on submit (still need to make aria-controls somehow dYnamic)
 
-          </div>
+          }
 
-        </div>
-          `; //adds a new card on submit (still need to make aria-controls somehow dYnamic)
+
 
           //adds the card to the accordion
           document.querySelector('.accordion').innerHTML += newCard; 
