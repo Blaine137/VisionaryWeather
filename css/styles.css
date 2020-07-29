@@ -21,6 +21,10 @@ NIGHTTIME COLOR PALETTE:
 main {
     min-height: 90vh;
 }
+
+.widget{
+    cursor: pointer !important;
+}
     /*DAYTIME STYLES*/
 /*.dayTimeHeader, .dayTimeFooter{
     /* background-image: linear-gradient(to right, #541388, #D90368); */
@@ -103,6 +107,11 @@ footer {
     background-color: #086375;
     color: white !important;
 }
+
+.nightTimeCardButton:focus{
+    box-shadow: none !important;
+}
+
 .nightTimeCardBg, .nightTimeSearchAddress{
     background-color: 	 #e4e6e7;
 }
