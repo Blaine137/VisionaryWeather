@@ -21,7 +21,7 @@ let getWeather = ( coordinates, elementTemp, elementFeelsLike, elementWind, elem
       
       //data is object/array that contains weather information for a given location
       let data = Object.entries( JSON.parse( this.responseText ) ); 
-      
+      console.log(data)
       //temp
       let tempData = Object.entries( data[ 2 ][ 1 ] );
       let currentTemp = parseInt( tempData[ 0 ][ 1 ] );
@@ -44,19 +44,19 @@ let getWeather = ( coordinates, elementTemp, elementFeelsLike, elementWind, elem
       elementHumidity.innerHTML = humidity;
 
       //sunrise
-      let sunrise = "Sunrise at " + data[7][1].value;
+      let sunrise = "Sunrise at " + data[9][1].value;
       elementSunrise.innerHTML = sunrise;
 
       //sunset 
-      let sunset = "Sunset at " + data[8][1].value;
+      let sunset = "Sunset at " + data[10][1].value;
       elementSunset.innerHTML = sunset;
 
       //weather code
-      let weatherCondition = data[9][1].value;
+      let weatherCondition = data[11][1].value;
       elementCondition.innerHTML =  weatherCondition.replace("_", " ");
 
       //air quality
-      let airQuality = "Air Quality is " + data[10][1].value;
+      let airQuality = "Air Quality is " + data[12][1].value;
       elementAir.innerHTML = airQuality;
 
       //precipitation

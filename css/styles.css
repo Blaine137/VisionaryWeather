@@ -22,9 +22,6 @@ main {
     min-height: 90vh;
 }
 
-.widget{
-    cursor: pointer !important;
-}
     /*DAYTIME STYLES*/
 /*.dayTimeHeader, .dayTimeFooter{
     /* background-image: linear-gradient(to right, #541388, #D90368); */
